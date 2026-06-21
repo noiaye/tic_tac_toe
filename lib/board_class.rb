@@ -1,8 +1,26 @@
-def BoardClass
-  def occupy_position(position)
+# # frozen_string_literal: true
+
+class BoardClass
+  attr_accessor :board
+
+  def initialize
+    @board = { a1: 'nil', a2: 'nil', a3: 'nil', b1: 'nil', b2: 'nil',
+               b3: 'nil', c1: 'nil', c2: 'nil', c3: 'nil' }
+  end
+
+  def occupy_position(position, player)
+    if @board[position] == 'nil'
+      @board.each do |key, _value|
+        @board[key] = player if key == position
+      end
+    else
+      p 'Place is already occuped, try again'
+    end
   end
 end
 
-# TODO
+# # TODO
+# # Make some way for Board Class to update a hash which has the coordinates
 #
-#
+
+# sparky = GoodDog.new # => "This object was initialized!"

@@ -16,9 +16,15 @@ the board should have a state checker to see what the current occupied positions
 
 for example:
 
-a1 a2 a3
+[a1 a2 a3
 b1 X O
-c1 O c3
+c1 O c3]
+
+{}
+
+The board coordinates should be stored in the form of a hash
+
+so we start in the main thing by initializing the players
 
 
 
