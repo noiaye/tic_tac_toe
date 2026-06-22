@@ -21,6 +21,10 @@ board = BoardClass.new
 #
 
 loop do
+  if board.boardfull? && board.won_game_o == false || board.boardfull? && board.won_game_x == false
+    p 'Tie >:)'
+    break
+  end
   p 'Place your move player X: '
   board.display
   move = :"#{gets.chomp}"
