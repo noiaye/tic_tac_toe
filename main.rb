@@ -16,17 +16,34 @@ board = BoardClass.new
 #           else
 #             'x'
 #           end
+#
+# Repeat untill won game is false
+#
 
-p 'Place your move player X: '
-board.display
-move = :"#{gets.chomp}"
-board.occupy_position(move, 'x')
+loop do
+  p 'Place your move player X: '
+  board.display
+  move = :"#{gets.chomp}"
+  board.occupy_position(move, 'x')
+
+  if board.won_game_x == true
+    p 'X won game hahahahaah'
+    board.display
+    break
+  end
+
+  p 'Place your move player O: '
+  board.display
+  move = :"#{gets.chomp}"
+  board.occupy_position(move, 'o')
+
+  next unless board.won_game_o == true
+
+  p 'o won game hahahhaa'
+  board.display
+  break
+end
 
 # TODO
 # Make game logic for checking all possible win conditions and seeing if the current stats is such
 #
-
-p 'Place your move player O: '
-board.display
-move = :"#{gets.chomp}"
-board.occupy_position(move, 'o')

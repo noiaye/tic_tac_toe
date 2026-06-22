@@ -6,6 +6,50 @@ class BoardClass
                b3: 'b3', c1: 'c1', c2: 'c2', c3: 'c3' }
   end
 
+  def won_game_x
+    if @board[:a1] == 'x' && @board[:a2] == 'x' && @board[:a3] == 'x'
+      true
+    elsif @board[:b1] == 'x' && @board[:b2] == 'x' && @board[:b3] == 'x'
+      true
+    elsif @board[:c1] == 'x' && @board[:c2] == 'x' && @board[:c3] == 'x'
+      true
+    elsif @board[:a1] == 'x' && @board[:b2] == 'x' && @board[:c3] == 'x'
+      true
+    elsif @board[:a1] == 'x' && @board[:b1] == 'x' && @board[:c1] == 'x'
+      true
+    elsif @board[:a2] == 'x' && @board[:b2] == 'x' && @board[:c2] == 'x'
+      true
+    elsif @board[:a3] == 'x' && @board[:b3] == 'x' && @board[:c3] == 'x'
+      true
+    elsif @board[:a3] == 'x' && @board[:b2] == 'x' && @board[:c1] == 'x'
+      true
+    else
+      false
+    end
+  end
+
+  def won_game_o
+    if @board[:a1] == 'o' && @board[:a2] == 'o' && @board[:a3] == 'o'
+      true
+    elsif @board[:b1] == 'o' && @board[:b2] == 'o' && @board[:b3] == 'o'
+      true
+    elsif @board[:c1] == 'o' && @board[:c2] == 'o' && @board[:c3] == 'o'
+      true
+    elsif @board[:a1] == 'o' && @board[:b2] == 'o' && @board[:c3] == 'o'
+      true
+    elsif @board[:a1] == 'o' && @board[:b1] == 'o' && @board[:c1] == 'o'
+      true
+    elsif @board[:a2] == 'o' && @board[:b2] == 'o' && @board[:c2] == 'o'
+      true
+    elsif @board[:a3] == 'o' && @board[:b3] == 'o' && @board[:c3] == 'o'
+      true
+    elsif @board[:a3] == 'o' && @board[:b2] == 'o' && @board[:c1] == 'o'
+      true
+    else
+      false
+    end
+  end
+
   def occupy_position(position, player)
     if @board[position] != 'x' && @board[position] != 'o'
       @board.each do |key, _value|
