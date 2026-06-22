@@ -1,8 +1,6 @@
 # # frozen_string_literal: true
 
 class BoardClass
-  attr_accessor :board
-
   def initialize
     @board = { a1: 'nil', a2: 'nil', a3: 'nil', b1: 'nil', b2: 'nil',
                b3: 'nil', c1: 'nil', c2: 'nil', c3: 'nil' }
@@ -17,6 +15,16 @@ class BoardClass
       p 'Place is already occuped, try again'
     end
   end
+
+  def display
+    @display_segment = @board.clone
+    ('a'..'c').each do |letter|
+      (1..3).each do |number|
+        print @display_segment[:"#{letter}#{number}"], ' '
+      end
+      puts
+    end
+  end
 end
 
 # # TODO
@@ -24,3 +32,6 @@ end
 #
 
 # sparky = GoodDog.new # => "This object was initialized!"
+# "nil" "nil" "nil"
+# "nil" "nil" "nil"
+# "nil" "nil" "nil"

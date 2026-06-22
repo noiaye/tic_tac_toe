@@ -7,8 +7,6 @@
 require_relative 'lib/board_class'
 
 babys = BoardClass.new
-p babys.board
 babys.occupy_position(:a2, 'x')
 babys.occupy_position(:b2, 'o')
-
-p babys.board
+babys.display
