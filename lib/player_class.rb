@@ -1,14 +1,18 @@
-class PlayerClass
-  def set_x
-    puts 'Which player do you want to be?'
-    result = gets
+module TicTac
+  class PlayerClass
+    def initialize(marker)
+      @marker = marker
+    end
+    attr_reader :marker
 
-    return if %w[x o].include?(result)
+    def ask_for_position(player)
+      loop do
+        p "Place your marker player: #{player.marker}"
+        position = :"#{gets.chomp}"
+        return position if @board[position] != 'x' || @board[position] != 'o'
 
-    gets
-  end
-
-  def set_y(variable)
-    variable = 'y'
+        puts 'Invalid or occupied position please try again'
+      end
+    end
   end
 end

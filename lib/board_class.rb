@@ -1,80 +1,43 @@
-# # frozen_string_literal: true
+# frozen_string_literal: true
 
-class BoardClass
-  def initialize
-    @board = { a1: 'a1', a2: 'a2', a3: 'a3', b1: 'b1', b2: 'b2',
-               b3: 'b3', c1: 'c1', c2: 'c2', c3: 'c3' }
-  end
-
-  def won_game_x
-    if @board[:a1] == 'x' && @board[:a2] == 'x' && @board[:a3] == 'x'
-      true
-    elsif @board[:b1] == 'x' && @board[:b2] == 'x' && @board[:b3] == 'x'
-      true
-    elsif @board[:c1] == 'x' && @board[:c2] == 'x' && @board[:c3] == 'x'
-      true
-    elsif @board[:a1] == 'x' && @board[:b2] == 'x' && @board[:c3] == 'x'
-      true
-    elsif @board[:a1] == 'x' && @board[:b1] == 'x' && @board[:c1] == 'x'
-      true
-    elsif @board[:a2] == 'x' && @board[:b2] == 'x' && @board[:c2] == 'x'
-      true
-    elsif @board[:a3] == 'x' && @board[:b3] == 'x' && @board[:c3] == 'x'
-      true
-    elsif @board[:a3] == 'x' && @board[:b2] == 'x' && @board[:c1] == 'x'
-      true
-    else
-      false
+module TicTac
+  class BoardClass
+    def initialize
+      @board = { a1: 'a1', a2: 'a2', a3: 'a3', b1: 'b1', b2: 'b2',
+                 b3: 'b3', c1: 'c1', c2: 'c2', c3: 'c3' }
     end
-  end
 
-  def won_game_o
-    if @board[:a1] == 'o' && @board[:a2] == 'o' && @board[:a3] == 'o'
-      true
-    elsif @board[:b1] == 'o' && @board[:b2] == 'o' && @board[:b3] == 'o'
-      true
-    elsif @board[:c1] == 'o' && @board[:c2] == 'o' && @board[:c3] == 'o'
-      true
-    elsif @board[:a1] == 'o' && @board[:b2] == 'o' && @board[:c3] == 'o'
-      true
-    elsif @board[:a1] == 'o' && @board[:b1] == 'o' && @board[:c1] == 'o'
-      true
-    elsif @board[:a2] == 'o' && @board[:b2] == 'o' && @board[:c2] == 'o'
-      true
-    elsif @board[:a3] == 'o' && @board[:b3] == 'o' && @board[:c3] == 'o'
-      true
-    elsif @board[:a3] == 'o' && @board[:b2] == 'o' && @board[:c1] == 'o'
-      true
-    else
-      false
-    end
-  end
+    LINES = [%i[a1 a2 a3], %i[b1 b2 b3], %i[c1 c2 c3], %i[a1 b2 c3], %i[a1 b1 c1], %i[a2 b2 c2], %i[a3 b3 c3],
+             %i[a3 b2 c1]].freeze
 
-  def occupy_position(position, player)
-    if @board[position] != 'x' && @board[position] != 'o'
+    def occupy_position(position, player)
       @board.each do |key, _value|
         @board[key] = player if key == position
       end
-    else
-      p 'Place is already occuped, try again'
     end
-  end
 
-  def display
-    ('a'..'c').each do |letter|
-      (1..3).each do |number|
-        print @board[:"#{letter}#{number}"], ' '
+    def display_board
+      ('a'..'c').each do |letter|
+        (1..3).each do |number|
+          print @board[:"#{letter}#{number}"], ' '
+        end
+        puts
       end
-      puts
     end
-  end
 
-  def boardfull?
-    yes = false
-    @board.each_value do |v|
-      yes = %w[x o].include?(v) || false
+    def won?(elm)
+      LINES.any? do |line|
+        line.all? { |element| @board[element] == elm }
+      end
     end
-    yes
+
+    def boardfull?
+      yes = false
+      @board.each_value do |v|
+        yes = %w[x o].include?(v) || false
+      end
+      yes
+    end
   end
 end
 
@@ -86,3 +49,7 @@ end
 # "nil" "nil" "nil"
 # "nil" "nil" "nil"
 # "nil" "nil" "nil"
+
+# OPTIMIZE
+# Array of possible win states
+# [ [a1, a2, a3],[b1, b2, b3], [c1, c2, c3] ]
