@@ -19,7 +19,8 @@ class BoardClass
   end
 
   def occupied?(position)
-    true if @board[position]
+    return true if @board[position]
+
     false
   end
 
