@@ -1,49 +1,43 @@
-# tic_tac_toe
 
-OOP Logic:
+Ask player weather they want to be X or O
+Display Board
+Ask player where they wanna place their marker
+As long as the position isnt occupied then we place their marker
+Check if they have won the game
+or if the board is full
+If not we switch players and start from asking the player where to place their marker
 
-What we need:
+-------------
 
-2 players,
-positions on the board
+Ask player where they wanna place their marker:
+    What we need:
 
+    Player,
+    Marker,
+    Position,
+    Board,
 
-Ideas:
+As long as the position isnt occupied, then we place their marker:
+    What we need:
 
-Player class, which should have an instance method called, set position
+    board
 
-the board should have a state checker to see what the current occupied positions are, if none is occupied it has its default value of its coordinate
+Check if they have won the game
+    What we need:
 
-for example:
+    Win pattern
 
-[a1 a2 a3
-b1 X O
-c1 O c3]
+CHeck if the board is full
+    What we need:
+    Board
 
-{}
+If not we switch players and start from asking the player where to place their marker
+    What we need:
 
-The board coordinates should be stored in the form of a hash
+    loop,
+    switch Players
+        What we need:
+            Some sort of player tracking system that depends on the current player
+            Some sort of storage for players
 
-so we start in the main thing by initializing the players
-
-
-
-1. start game
-2. ask weather player wants to be X or O
-4. the board displays its current coordinates (since no values have been place it will show all itss coordinates)
-
-3. if player was x then they begin by placing themselves on one of the positions listed on the board above
-4. we update the boards position on that coordinate through maybe a setter method to be the value either X or O
-5. now we ensure that only the O player can play
-6. We ensure they cant play on the same square as the other player
-7. we update coordinates as followed
-8. following win conditions: a1, a2, a3: b1, b2, b3: c1, c2, c3: a1, b2, c3: c1, b2, a3: c3, b2, a1
-
-
-
-
-
-
-
-
-
+            

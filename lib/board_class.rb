@@ -1,55 +1,41 @@
-# frozen_string_literal: true
+class BoardClass
+  attr_reader :board
 
-module TicTac
-  class BoardClass
-    def initialize
-      @board = { a1: 'a1', a2: 'a2', a3: 'a3', b1: 'b1', b2: 'b2',
-                 b3: 'b3', c1: 'c1', c2: 'c2', c3: 'c3' }
-    end
+  def initialize
+    @board = Array.new(10)
+    @winning_positions = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 5, 9], [3, 5, 7], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
+  end
 
-    LINES = [%i[a1 a2 a3], %i[b1 b2 b3], %i[c1 c2 c3], %i[a1 b2 c3], %i[a1 b1 c1], %i[a2 b2 c2], %i[a3 b3 c3],
-             %i[a3 b2 c1]].freeze
+  def displaye
+    rows = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    row_seperator = '--+---+--'
+    col_seperator = ' | '
 
-    def occupy_position(position, player)
-      @board.each do |key, _value|
-        @board[key] = player if key == position
-      end
-    end
+    label_for_display = ->(position) { @board[position] || position }
+    row_for_display = ->(row) { row.map(&label_for_display).join(col_seperator) }
 
-    def display_board
-      ('a'..'c').each do |letter|
-        (1..3).each do |number|
-          print @board[:"#{letter}#{number}"], ' '
-        end
-        puts
-      end
-    end
+    ding = rows.map(&row_for_display)
+    puts ding.join("\n" + row_seperator + "\n")
+  end
 
-    def won?(elm)
-      LINES.any? do |line|
-        line.all? { |element| @board[element] == elm }
-      end
-    end
+  def occupied?(position)
+    true if @board[position]
+    false
+  end
 
-    def boardfull?
-      yes = false
-      @board.each_value do |v|
-        yes = %w[x o].include?(v) || false
-      end
-      yes
+  def place(marker, position)
+    @board[position] = marker
+  end
+
+  def full?
+    return unless @board.all? { |elm| elm }
+
+    true
+  end
+
+  def won?(marker)
+    @winning_positions.any? do |elm|
+      elm.all? { |each| @board[each] == marker }
     end
   end
 end
-
-# # TODO
-# # Make some way for Board Class to update a hash which has the coordinates
-#
-
-# sparky = GoodDog.new # => "This object was initialized!"
-# "nil" "nil" "nil"
-# "nil" "nil" "nil"
-# "nil" "nil" "nil"
-
-# OPTIMIZE
-# Array of possible win states
-# [ [a1, a2, a3],[b1, b2, b3], [c1, c2, c3] ]

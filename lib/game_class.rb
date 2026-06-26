@@ -1,42 +1,51 @@
 require_relative 'player_class'
 require_relative 'board_class'
-module TicTac
-  class GameClass
-    def initialize(player_1_class, player_2_class)
-      @current_player_id = 0
-      @players = [player_1_class.new('x'), player_2_class.new('o')]
-    end
-    attr_reader :players
 
-    def current_player
-      @player[@current_player_id]
-    end
+class GameClass
+  attr_reader :players, :current_player_id, :board_manager
 
-    def switch_players
-      @current_player_id = other_player_id
-    end
+  def initialize
+    @players = [PlayerClass.new('X'), PlayerClass.new('O')]
+    @board_manager = BoardClass.new
+    @current_player_id = 0
+  end
 
-    def other_player_id
-      1 - @current_player_id
-    end
+  def current_player
+    players[current_player_id]
+  end
 
-    def play
-      loop do
-        BoardClass.display_board
+  def switch_players
+    @current_player_id = other_player_id
+  end
 
-        BoardClass.occupy_position(PlayerClass.ask_for_position(current_player), current_player)
+  def other_player_id
+    1 - @current_player_id
+  end
 
-        if BoardClass.won?(current_player.marker)
-          puts 'Player X has won!!'
-          display
-          return
-        elsif BoardClass.boardfull?
-          p 'Draw'
-          display
-          return
-        end
-        switch_players
+  def ask_player
+    puts 'Where do you wanna put ur thing'
+    position = gets.to_i
+    return position if board_manager.occupied?(position) == false
+
+    puts 'Please try again'
+  end
+
+  def play
+    loop do
+      board_manager.displaye
+      position = ask_player
+      puts position
+      board_manager.place(current_player.marker, position)
+      board_manager.displaye
+      if board_manager.won?(current_player.marker)
+        return puts "Player #{current_player.marker} Won!"
+      elsif board_manager.full?
+        return puts 'Draw!'
       end
+
+      switch_players
     end
   end
 end
+
+GameClass.new.play
